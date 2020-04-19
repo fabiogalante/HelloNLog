@@ -1,18 +1,20 @@
-﻿using System;
-using NLog;
+﻿using NLog;
 using NLog.Config;
 using NLog.Targets;
+using System;
 
 namespace HelloNLog
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
-            //NLogMethod();
+            NLogMethod();
+            CallFizzBuzz();
         }
 
-        private static void NLogMethod()
+        private static void CallFizzBuzz()
         {
             ConsoleTarget consoleTarget = new ConsoleTarget
             {
@@ -26,9 +28,27 @@ namespace HelloNLog
 
             LogFactory logFactory = new LogFactory(loggingConfiguration);
 
-            Logger logger = logFactory.GetLogger("PluralsightLogger");
 
-            logger.Info("Teste");
+            var logger = logFactory.GetLogger("FizzBuzz");
+
+            Calculus fizzBuzz = new Calculus();
+            for (int i = 0; i < 50; i++)
+            {
+                var random = new Random();
+                int number = random.Next(100);
+                var resut = fizzBuzz.FizzBuzz(number);
+                //Debug.WriteLine($"{number} : {resut}");
+                logger.Info($"{number} : {resut}");
+                Console.WriteLine(resut);
+
+            }
+        }
+
+        private static void NLogMethod()
+        {
+           
+
+            // _logger.Info("Teste");
         }
     }
 }
